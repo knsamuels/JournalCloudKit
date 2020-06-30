@@ -41,13 +41,13 @@ class EntryDetailViewController: UIViewController {
         EntryController.shared.createEntryWith(title: title, body: body) { (result) in
             switch result {
             case .success(let entry):
-                EntryController.shared.entries.append(entry)
+                EntryController.shared.entries.insert(entry, at: 0)
+                DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: true)
+                }
             case .failure(let error):
                 print(error.errorDescription)
             }
-        }
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
         }
     }
     
